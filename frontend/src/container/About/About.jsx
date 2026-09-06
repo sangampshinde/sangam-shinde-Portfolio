@@ -84,7 +84,7 @@ const sortedAbouts = [...abouts].sort((a, b) => {
          className="app__profile-item"
          key={about.title + index}
          >
-          <img src={urlFor(about?.imgUrl).url()} alt={about.title} />
+          <img src={urlFor(about?.imgUrl).url() || null} alt={about.title} />
           <h2 className="bold-text" style={{ marginTop: 20 }}>{about.title}</h2>
           <p className="p-text" style={{ marginTop: 10 }}>{about.description}</p>
          </motion.div>

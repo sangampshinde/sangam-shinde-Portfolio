@@ -13,4 +13,24 @@ export const client = createClient({
 
 const builder = createImageUrlBuilder(client)
 
-export const urlFor = (source) => builder.image(source)
+const emptyBuilder = {
+  url: () => null,
+  width: () => emptyBuilder,
+  height: () => emptyBuilder,
+  fit: () => emptyBuilder,
+  auto: () => emptyBuilder,
+  rect: () => emptyBuilder,
+  size: () => emptyBuilder,
+  format: () => emptyBuilder,
+  quality: () => emptyBuilder,
+  toString: () => ''
+}
+
+export const urlFor = (source) => {
+  if (!source) return emptyBuilder
+  try {
+    return builder.image(source)
+  } catch (err) {
+    return emptyBuilder
+  }
+}

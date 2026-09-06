@@ -63,10 +63,10 @@ useEffect(() => {
          whileInView={{ opacity: [0, 1] }}
          transition={{ duration: 0.5 }}
          className="app__skills-item app__flex"
-         key={skill.name}
+         key={skill._id || skill.name}
         >
           <div className="app__flex" style={{ backgroundColor: skill.bgColor }}>
-            <img src={urlFor(skill?.icon)} alt={skill.name} />
+            {skill?.icon && <img src={urlFor(skill.icon).url() || null} alt={skill.name} />}
           </div>
            <p className="p-text">{skill.name}</p>
         </motion.div>
@@ -77,21 +77,20 @@ useEffect(() => {
          {experiences?.map((experience) => (
           <motion.div
              className="app__skills-exp-item"
-             key={experience.year}
+             key={experience._id || experience.year}
           >
             <div className="app__skills-exp-year">
                 <p className="bold-text">{experience.year}</p>
             </div>
              <motion.div className="app__skills-exp-works">
-                {experience?.works.map((work) => (
-                  <>
+                {experience?.works?.map((work) => (
+                  <React.Fragment key={work._id || work.name}>
                     <motion.div
                       whileInView={{ opacity: [0, 1] }}
                       transition={{ duration: 0.5 }}
                       className="app__skills-exp-work"
                       data-tip
                       data-for={work.name}
-                      key={work.name}
                     >
                       <h4 className="bold-text">{work.name}</h4>
                       <p className="p-text">{work.company}</p>
@@ -104,7 +103,7 @@ useEffect(() => {
                     >
                       {work.desc}
                     </Tooltip>
-                  </>
+                  </React.Fragment>
                 ))}
               </motion.div>
           </motion.div>
